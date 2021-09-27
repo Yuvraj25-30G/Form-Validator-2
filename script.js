@@ -38,10 +38,30 @@ function checkRequired(arr) {
     })
 }
 
+
+function checkLength(input,min,max){
+    if(input.value.length < min){
+        showError(input, input.id.charAt(0).toUpperCase()+input.id.slice(1)+' must be more than ' + min);
+    } else if(input.value.length > max){
+        showError(input, input.id.charAt(0).toUpperCase()+input.id.slice(1)+'must be less than ' + max);
+    } else {
+        showSuccess(input);
+    }
+}
+
+function passwordMatch(input1 , input2) {
+    if(input1.value !== input2.value) {
+        showError(input2,'Password must match')
+    }
+}
+
 // Event listers
 form.addEventListener('submit', function(e){
     e.preventDefault();
 
 
     checkRequired([username, email, password, password2]);
+    checkLength(username, 3, 15);
+    checkLength(password, 8, 16);
+    passwordMatch(password,password2);
 })
